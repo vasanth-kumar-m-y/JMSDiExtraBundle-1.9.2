@@ -59,8 +59,10 @@ class ControllerResolver extends BaseControllerResolver
 
         list($class, $method) = explode('::', $controller, 2);
 
-        if (!class_exists($class)) {
-            throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
+        if ($class !== 'web_profiler.controller.profiler') {
+            if (!class_exists($class)) {
+                throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $class));
+            }
         }
 
         return array($this->instantiateController($class), $method);
